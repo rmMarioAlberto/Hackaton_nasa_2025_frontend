@@ -1,0 +1,47 @@
+/* src/components/layout/Layout.css */
+
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+    background-color: #f0f2f5;
+}
+
+.app-content {
+    flex-grow: 1; /* Hace que el contenido principal ocupe todo el espacio disponible */
+    padding: 2rem;
+}
+
+/* Estilos para Header */
+.app-header {
+    background-color: #1a2238;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.app-header nav a {
+    color: white;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.app-header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para Footer */
+.app-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
