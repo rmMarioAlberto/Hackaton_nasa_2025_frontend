@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
-import './css/WelcomePage.css';
+import './WelcomePage.css';
 
-// Importa tu nueva imagen de fondo
-import heroBackgroundImage from '../../../assets/portadas/portada3.jpeg'; 
-
+// Importar imágenes con las extensiones originales
+import heroBackgroundImage from '../../../assets/portadas/portada3.jpeg';
 import imageCard1 from '../../../assets/portadas/page.jpeg';
 import imageCard2 from '../../../assets/portadas/protada2.png';
 import imageCard3 from '../../../assets/portadas/portada3.jpeg';
@@ -27,63 +26,59 @@ const WelcomePage: React.FC = () => {
     };
 
     const itemVariants: Variants = {
-        hidden: { y: 20, opacity: 0 },
+        hidden: { y: 30, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
-            transition: { type: 'spring', stiffness: 100 },
+            transition: { type: 'spring', stiffness: 120, damping: 15 },
         },
     };
 
     const sentenceVariants: Variants = {
-      hidden: { opacity: 1 },
-      visible: {
-        opacity: 1,
-        transition: {
-          // CAMBIO 1: Retrasamos el inicio de la animación del texto
-          delay: 1.5, 
-          staggerChildren: 0.08,
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delay: 1,
+                staggerChildren: 0.06,
+            },
         },
-      },
     };
 
     const wordVariants: Variants = {
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            type: 'spring',
-            damping: 12,
-            stiffness: 100,
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: 'spring',
+                damping: 12,
+                stiffness: 120,
+            },
         },
-      },
     };
 
     const heroTitle = "Descubre los Misterios de los Exoplanetas";
     const heroSubtitle = "Explora mundos lejanos, más allá de nuestro sistema solar, en el corazón de la exploración espacial de la NASA.";
 
-
     return (
         <div className="welcome-page-container">
             <section className="hero-section">
-                {/* CAMBIO 2: Envolvemos la imagen en un motion.div para animarla */}
-                <motion.div 
-                    className="hero-background-image" 
+                <motion.div
+                    className="hero-background-image"
                     style={{ backgroundImage: `url(${heroBackgroundImage})` }}
-                    initial={{ opacity: 0, scale: 1.1 }} // Empieza invisible y un poco más grande
-                    animate={{ opacity: 1, scale: 1 }}   // Aparece y hace un suave zoom out
-                    transition={{ duration: 2, ease: "easeOut" }} // Duración de la animación de la imagen
+                    initial={{ opacity: 0, scale: 1.2 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 2.5, ease: 'easeOut' }}
                 />
-                
+
                 <motion.div
                     className="hero-content"
+                    variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                 >
-                    <motion.h1
-                        variants={sentenceVariants}
-                    >
+                    <motion.h1 variants={sentenceVariants}>
                         {heroTitle.split(" ").map((word, index) => (
                             <motion.span
                                 key={word + "-" + index}
@@ -98,8 +93,7 @@ const WelcomePage: React.FC = () => {
                     <motion.p
                         className="subtitle"
                         variants={sentenceVariants}
-                        // CAMBIO 3: Ajustamos el retraso del subtítulo para que coincida con la nueva secuencia
-                        transition={{ staggerChildren: 0.04, delayChildren: 2.5 }}
+                        transition={{ staggerChildren: 0.04, delayChildren: 2 }}
                     >
                         {heroSubtitle.split(" ").map((word, index) => (
                             <motion.span
@@ -111,33 +105,34 @@ const WelcomePage: React.FC = () => {
                             </motion.span>
                         ))}
                     </motion.p>
-                    
+
                     <motion.button
                         className="explore-button"
-                        whileHover={{ scale: 1.05, boxShadow: "0px 0px 12px rgb(0,123,255)" }}
+                        whileHover={{ scale: 1.08, boxShadow: '0px 0px 15px rgba(0,123,255,0.7)' }}
                         whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        // CAMBIO 4: Aumentamos el retraso del botón para que aparezca al final de todo
-                        transition={{ duration: 0.5, delay: 4.5 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 3.5 }}
                     >
                         ¡Comienza tu viaje cósmico!
                     </motion.button>
                 </motion.div>
             </section>
 
-            {/* --- El resto del archivo no necesita cambios --- */}
-
             <motion.section
                 className="info-section"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.2 }}
             >
                 <motion.div className="info-card" variants={itemVariants}>
                     <div className="card-image-container">
-                        <img src={exoplanetImages.card1} alt="Exoplaneta Kepler-186f" />
+                        <img
+                            src={exoplanetImages.card1}
+                            alt="Exoplaneta Kepler-186f"
+                            loading="lazy"
+                        />
                     </div>
                     <h3>¿Qué es un Exoplaneta?</h3>
                     <p>
@@ -146,7 +141,11 @@ const WelcomePage: React.FC = () => {
                 </motion.div>
                 <motion.div className="info-card" variants={itemVariants}>
                     <div className="card-image-container">
-                        <img src={exoplanetImages.card2} alt="Exoplaneta TRAPPIST-1e" />
+                        <img
+                            src={exoplanetImages.card2}
+                            alt="Exoplaneta TRAPPIST-1e"
+                            loading="lazy"
+                        />
                     </div>
                     <h3>La Búsqueda Continúa</h3>
                     <p>
@@ -154,8 +153,12 @@ const WelcomePage: React.FC = () => {
                     </p>
                 </motion.div>
                 <motion.div className="info-card" variants={itemVariants}>
-                     <div className="card-image-container">
-                        <img src={exoplanetImages.card3} alt="Ilustración espacial" />
+                    <div className="card-image-container">
+                        <img
+                            src={exoplanetImages.card3}
+                            alt="Ilustración espacial"
+                            loading="lazy"
+                        />
                     </div>
                     <h3>Nuestro Impacto</h3>
                     <p>
@@ -165,26 +168,29 @@ const WelcomePage: React.FC = () => {
             </motion.section>
 
             <section className="cta-section">
-                 <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
+                <motion.h2
+                    initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                 >
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                >
                     ¿Listo para Explorar?
                 </motion.h2>
                 <motion.p
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
                 >
                     Únete a nuestra comunidad de exploradores y científicos.
                 </motion.p>
                 <motion.button
                     className="cta-button"
-                    whileHover={{ scale: 1.05, boxShadow: "0px 0px 12px rgb(246,114,128)" }}
+                    whileHover={{ scale: 1.08, boxShadow: '0px 0px 15px rgba(246,114,128,0.7)' }}
                     whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
                 >
                     Ver Proyectos del Hackathon
                 </motion.button>
