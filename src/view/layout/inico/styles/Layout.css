@@ -1,18 +1,14 @@
-/* src/components/layout/Layout.css */
-
+/* src/view/layout/inico/styles/Layout.css */
 .app-layout {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+    min-height: 100vh;
     background-color: #f0f2f5;
 }
-
 .app-content {
-    flex-grow: 1; /* Hace que el contenido principal ocupe todo el espacio disponible */
+    flex-grow: 1;
     padding: 2rem;
 }
-
-/* Estilos para Header */
 .app-header {
     background-color: #1a2238;
     color: white;
@@ -21,24 +17,14 @@
     justify-content: space-between;
     align-items: center;
 }
-
-.app-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
+.app-header h1 { margin: 0; font-size: 1.5rem; }
 .app-header nav a {
     color: white;
     margin-left: 1.5rem;
     text-decoration: none;
     font-weight: bold;
 }
-
-.app-header nav a:hover {
-    text-decoration: underline;
-}
-
-/* Estilos para Footer */
+.app-header nav a:hover { text-decoration: underline; }
 .app-footer {
     background-color: #333;
     color: white;

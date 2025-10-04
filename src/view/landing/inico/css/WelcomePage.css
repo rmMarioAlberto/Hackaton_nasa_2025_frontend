@@ -1,0 +1,8 @@
+/* src/view/landing/inico/WelcomePage.css */
+.welcome-container {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
