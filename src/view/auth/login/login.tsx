@@ -5,7 +5,6 @@ import { Eye, EyeOff, Mail, Lock, Rocket, Star, AlertCircle, CheckCircle, ArrowL
 import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 
-// ... (El resto de tu código que no cambia se mantiene igual) ...
 interface LoginForm {
     email: string;
     password: string;
@@ -46,14 +45,13 @@ const Login: React.FC = () => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Esto ya estaba bien
+        window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent): void => {
             setMousePos({ x: e.clientX, y: e.clientY });
         };
-
         window.addEventListener('mousemove', handleMouseMove);
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
@@ -75,45 +73,29 @@ const Login: React.FC = () => {
         } else if (rules.maxLength && value.length > rules.maxLength) {
             error = `Máximo ${rules.maxLength} caracteres`;
         }
-
         return error;
     };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
         setTouched(prev => ({ ...prev, [name]: true }));
-
         const error = validateField(name as keyof LoginForm, value);
-        setErrors(prev => ({
-            ...prev,
-            [name]: error
-        }));
+        setErrors(prev => ({ ...prev, [name]: error }));
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-
+        setFormData(prev => ({ ...prev, [name]: value }));
         if (touched[name as keyof LoginForm]) {
             const error = validateField(name as keyof LoginForm, value);
-            setErrors(prev => ({
-                ...prev,
-                [name]: error
-            }));
+            setErrors(prev => ({ ...prev, [name]: error }));
         }
     };
 
     const validateForm = (): boolean => {
         const newErrors: Partial<LoginForm> = {};
         let isValid = true;
-
-        const allTouched = {
-            email: true,
-            password: true
-        };
+        const allTouched = { email: true, password: true };
         setTouched(allTouched);
 
         (Object.keys(formData) as Array<keyof LoginForm>).forEach(key => {
@@ -123,50 +105,58 @@ const Login: React.FC = () => {
                 isValid = false;
             }
         });
-
         setErrors(newErrors);
         return isValid;
     };
 
+    // --- CAMBIO PRINCIPAL: LÓGICA PARA CONSUMIR EL BACKEND ---
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         if (!validateForm()) {
             const firstErrorField = document.querySelector('.input-error');
             if (firstErrorField) {
-                firstErrorField.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             return;
         }
 
         setIsLoading(true);
+        setErrors({}); // Limpia errores previos antes de la nueva petición
 
         try {
-            console.log('Iniciando sesión con:', formData);
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Se hace la petición POST a tu backend
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                }),
+            });
 
-            // Para esta demostración, forzaremos una respuesta exitosa.
-            const response = { success: true, message: 'Login exitoso' };
+            const data = await response.json();
 
-            if (!response.success) {
-                throw new Error(response.message);
+            // Si la respuesta no es exitosa (ej. status 401), se lanza un error
+            if (!response.ok) {
+                throw new Error(data.message || 'Error de autenticación');
             }
 
-            console.log('Login exitoso, redirigiendo...');
-            
-            // <-- CAMBIO PRINCIPAL: Se activa la redirección al dashboard
+            // Si todo sale bien, guardamos el token (opcional por ahora) y redirigimos
+            console.log('Login exitoso:', data);
+            // localStorage.setItem('token', data.token); // Buen lugar para guardar el token
             
             navigate('/admin/dashboard');
 
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
-            const errorMessage = error instanceof Error ? error.message : 'Error al iniciar sesión';
+            const errorMessage = error instanceof Error ? error.message : 'Error desconocido al iniciar sesión';
+            
+            // Muestra el mensaje de error del backend en el formulario
             setErrors({
-                email: errorMessage,
-                password: errorMessage.includes('credenciales') ? 'Verifica tu contraseña' : ''
+                email: errorMessage, // Muestra el error general en el campo email
             });
         } finally {
             setIsLoading(false);
@@ -181,7 +171,6 @@ const Login: React.FC = () => {
     };
 
     return (
-        // ... (Tu JSX permanece exactamente igual, no necesita cambios) ...
         <div className="welcome-page-container">
             <div className="hero-section">
                 <div
@@ -310,14 +299,9 @@ const Login: React.FC = () => {
                                         {errors.password}
                                     </span>
                                 )}
-                                {!errors.password && formData.password && (
-                                    <span className="password-strength">
-                                        {formData.password.length >= 8 ? '🔒 Contraseña segura' : '⚠️ Contraseña débil'}
-                                    </span>
-                                )}
                             </div>
 
-                            {/* Botones de acción */}
+                            {/* Action Buttons */}
                             <div className="login-buttons">
                                 <button
                                     type="button"
@@ -334,7 +318,7 @@ const Login: React.FC = () => {
                                     className={`explore-button login-submit ${
                                         isLoading ? 'loading' : ''
                                     } ${
-                                        Object.keys(errors).length > 0 ? 'has-errors' : ''
+                                        Object.keys(errors).some(k => errors[k as keyof LoginForm]) ? 'has-errors' : ''
                                     }`}
                                     disabled={isLoading}
                                 >

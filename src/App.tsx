@@ -11,6 +11,7 @@ import WelcomePage from './view/landing/inico/WelcomePage';
 import Login from './view/auth/login/login';
 import ChatbotView from './view/chatbot/ChatbotView';
 import Dashboard from './view/admin/dashboard/Dashboard';
+import ParallaxLanding from './components/landing/ParallaxLanding';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route index element={<WelcomePage />} />
           <Route path="login" element={<Login />} />
           <Route path="chatbot" element={<ChatbotView />} /> 
+          <Route path="parallax" element={<ParallaxLanding />} />
         </Route>
 
         {/* --- 3. GRUPO DE RUTAS DE ADMINISTRADOR --- */}

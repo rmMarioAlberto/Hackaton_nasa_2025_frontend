@@ -69,9 +69,13 @@ const WelcomePage: React.FC = () => {
         navigate('/login');
     };
 
-    // Nueva función para manejar el clic en el chatbot
     const handleChatbotClick = () => {
         navigate('/chatbot');
+    };
+
+    // Esta es la función que se usará para la navegación
+    const handleParallaxClick = () => {
+        navigate('/parallax');
     };
 
     return (
@@ -172,8 +176,15 @@ const WelcomePage: React.FC = () => {
                         Desde modelos base hasta avanzados como GPT y Llama, la humanidad está en una búsqueda incesante para comprender y generar lenguaje natural con precisión y creatividad.
                     </p>
                 </motion.div>
-                <motion.div className="info-card" variants={itemVariants}>
-                     <div className="card-image-container">
+                
+                {/* --- ESTA ES LA PARTE MODIFICADA --- */}
+                <motion.div 
+                    className="info-card" 
+                    variants={itemVariants}
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleParallaxClick}
+                >
+                    <div className="card-image-container">
                         <img src={featureImages.card3} alt="Ilustración espacial" loading="lazy" />
                     </div>
                     <h3>Nuestro Impacto</h3>
@@ -189,7 +200,7 @@ const WelcomePage: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                 >
+                >
                     ¿Listo para Explorar?
                 </motion.h2>
                 <motion.p
