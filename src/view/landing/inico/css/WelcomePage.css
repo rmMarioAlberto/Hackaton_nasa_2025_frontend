@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #0a0a14; 
+    background-color: #0a0a14; /* Fondo consistente */
 }
 
 .app-content {
@@ -15,16 +15,16 @@
     flex-direction: column;
 }
 
-
+/* Estilos globales para la WelcomePage */
 .welcome-page-container {
     font-family: 'Montserrat', sans-serif;
     color: #e0e0e0;
     line-height: 1.6;
     overflow-x: hidden;
-    flex: 1; 
+    flex: 1; /* Para que ocupe todo el espacio disponible en app-content */
 }
 
-
+/* --- Hero Section --- */
 .hero-section {
     position: relative;
     height: 100%; /* Ocupa todo el espacio disponible en el contenedor principal */
@@ -34,6 +34,7 @@
     text-align: center;
     overflow: hidden;
     background-color: #000000; /* Fondo negro más negro detrás de la imagen */
+    border-radius: 0;
 }
 
 .hero-background-image {
@@ -86,7 +87,7 @@
     color: white;
     padding: 1.2rem 2.5rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
@@ -109,11 +110,10 @@
 
 .info-card {
     background-color: #1f1f3a;
-    border-radius: 12px;
+    border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     text-align: center;
     overflow: hidden;
-    border: 1px solid rgba(165, 248, 255, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -162,7 +162,6 @@
     background-color: #0a0a14;
     padding: 6rem 2rem;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .cta-section h2 {
@@ -183,7 +182,7 @@
     color: white;
     padding: 1.3rem 3rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 1.3rem;
     font-weight: 600;
     cursor: pointer;
@@ -275,7 +274,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .app-header h1 {
@@ -304,7 +302,6 @@
     background-color: #0a0a14;
     padding: 1rem 2rem;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .app-footer p {
