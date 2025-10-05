@@ -1,16 +1,18 @@
 // src/view/layout/admin/Header.tsx
+
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut } from 'lucide-react';
+// --- 1. Importa un nuevo ícono para el enlace ---
+import { LayoutDashboard, LogOut, FileArchive } from 'lucide-react'; 
 import './styles/AdminLayout.css';
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Lógica para cerrar sesión (limpiar tokens, etc.)
-        console.log("Cerrando sesión del panel de admin...");
-        navigate('/'); // Redirige a la página principal
+        console.log("Cerrando sesión y limpiando almacenamiento...");
+        localStorage.clear();
+        navigate('/');
     };
 
     return (
@@ -19,6 +21,7 @@ const Header: React.FC = () => {
                 <h2>🚀 Mission Control</h2>
             </div>
             <nav className="admin-nav">
+                {/* Enlace al Dashboard (existente) */}
                 <NavLink 
                     to="/admin/dashboard" 
                     className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}
@@ -26,7 +29,15 @@ const Header: React.FC = () => {
                     <LayoutDashboard size={18} />
                     <span>Dashboard</span>
                 </NavLink>
-                {/* Puedes agregar más enlaces de administrador aquí */}
+
+                {/* --- 2. Agrega el nuevo enlace a Dropbox aquí --- */}
+                <NavLink 
+                    to="/admin/dropbox" 
+                    className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}
+                >
+                    <FileArchive size={18} />
+                    <span>Dropbox</span>
+                </NavLink>
             </nav>
             <div className="admin-header-actions">
                 <button onClick={handleLogout} className="admin-logout-button">

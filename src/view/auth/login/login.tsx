@@ -1,4 +1,3 @@
-// src/views/auth/login/Login.tsx
 
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Mail, Lock, Rocket, Star, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
@@ -109,7 +108,6 @@ const Login: React.FC = () => {
         return isValid;
     };
 
-    // --- CAMBIO PRINCIPAL: LÓGICA PARA CONSUMIR EL BACKEND ---
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
@@ -122,11 +120,10 @@ const Login: React.FC = () => {
         }
 
         setIsLoading(true);
-        setErrors({}); // Limpia errores previos antes de la nueva petición
+        setErrors({});
 
         try {
-            // Se hace la petición POST a tu backend
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('https://268c4e9747c7.ngrok-free.app/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -139,24 +136,20 @@ const Login: React.FC = () => {
 
             const data = await response.json();
 
-            // Si la respuesta no es exitosa (ej. status 401), se lanza un error
             if (!response.ok) {
                 throw new Error(data.message || 'Error de autenticación');
             }
 
-            // Si todo sale bien, guardamos el token (opcional por ahora) y redirigimos
             console.log('Login exitoso:', data);
-            // localStorage.setItem('token', data.token); // Buen lugar para guardar el token
-            
+            localStorage.setItem('token', data.token);
             navigate('/admin/dashboard');
 
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido al iniciar sesión';
             
-            // Muestra el mensaje de error del backend en el formulario
             setErrors({
-                email: errorMessage, // Muestra el error general en el campo email
+                email: errorMessage,
             });
         } finally {
             setIsLoading(false);
@@ -179,7 +172,6 @@ const Login: React.FC = () => {
                         backgroundImage: 'url(https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1920)',
                     }}
                 />
-
                 <div className="stars-container">
                     {[...Array(50)].map((_, i) => (
                         <Star
@@ -195,7 +187,6 @@ const Login: React.FC = () => {
                         />
                     ))}
                 </div>
-
                 <div
                     className="login-orb orb-1"
                     style={{
@@ -208,7 +199,6 @@ const Login: React.FC = () => {
                         transform: `translate(${-mousePos.x * 0.015}px, ${-mousePos.y * 0.015}px)`
                     }}
                 />
-
                 <div className="hero-content">
                     <div className="login-container">
                         <div className="login-header">
@@ -216,9 +206,7 @@ const Login: React.FC = () => {
                             <h1>Bienvenido de Vuelta</h1>
                             <p className="subtitle">Continúa tu exploración del universo</p>
                         </div>
-
                         <form onSubmit={handleSubmit} className="login-form" noValidate>
-                            {/* Email Input */}
                             <div className="input-group">
                                 <label htmlFor="email">Correo Electrónico</label>
                                 <div className="input-wrapper">
@@ -254,8 +242,6 @@ const Login: React.FC = () => {
                                     </span>
                                 )}
                             </div>
-
-                            {/* Password Input */}
                             <div className="input-group">
                                 <label htmlFor="password">Contraseña</label>
                                 <div className="input-wrapper">
@@ -300,8 +286,6 @@ const Login: React.FC = () => {
                                     </span>
                                 )}
                             </div>
-
-                            {/* Action Buttons */}
                             <div className="login-buttons">
                                 <button
                                     type="button"
@@ -312,7 +296,6 @@ const Login: React.FC = () => {
                                     <ArrowLeft size={18} />
                                     Volver
                                 </button>
-
                                 <button
                                     type="submit"
                                     className={`explore-button login-submit ${
@@ -336,7 +319,6 @@ const Login: React.FC = () => {
                     </div>
                 </div>
             </div>
-
             <div className="cta-section">
                 <h2>Explora el Universo de Exoplanetas</h2>
                 <p>
