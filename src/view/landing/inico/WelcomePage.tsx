@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { motion, Variants } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import './css/WelcomePage.css';
 
 const WelcomePage: React.FC = () => {
+    const navigate = useNavigate();
     const heroBackgroundImage = '/assets/img/TRAPPIST-1e_artist_impression_2018.png';
 
-    const exoplanetImages = {
-        card1: '/assets/img/2000x1125.jpg',
-        card2: '/assets/img/tess_gj357_english_thm.jpg',
+    const featureImages = {
+        card1: '/assets/img/chatbox.jpg',
+        card2: '/assets/img/lm-model.jpg',
         card3: '/assets/img/2000x1209.png',
     };
 
@@ -62,6 +64,10 @@ const WelcomePage: React.FC = () => {
 
     const heroTitle = "Descubre los Misterios de los Exoplanetas";
     const heroSubtitle = "Explora mundos lejanos, más allá de nuestro sistema solar, en el corazón de la exploración espacial de la NASA.";
+
+    const handleLmClick = () => {
+        navigate('/login');
+    };
 
     return (
         <div className="welcome-page-container">
@@ -135,25 +141,30 @@ const WelcomePage: React.FC = () => {
             >
                 <motion.div className="info-card" variants={itemVariants}>
                     <div className="card-image-container">
-                        <img src={exoplanetImages.card1} alt="Exoplaneta Kepler-186f" loading="lazy" />
+                        <img src={featureImages.card1} alt="Chatbox de acceso" loading="lazy" />
                     </div>
-                    <h3>¿Qué es un Exoplaneta?</h3>
+                    <h3>Accede al Chatbox</h3>
                     <p>
-                        Un exoplaneta es un planeta que orbita una estrella diferente a nuestro Sol. La NASA ha descubierto miles, cada uno con sus propias características únicas y posibilidades de albergar vida.
+                        Un chatbox interactivo que te permite acceder a herramientas de IA en tiempo real. Descubre miles de funcionalidades, cada una con características únicas y posibilidades de interacción avanzada.
                     </p>
                 </motion.div>
-                <motion.div className="info-card" variants={itemVariants}>
+                <motion.div 
+                    className="info-card" 
+                    variants={itemVariants}
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleLmClick}
+                >
                     <div className="card-image-container">
-                        <img src={exoplanetImages.card2} alt="Exoplaneta TRAPPIST-1e" loading="lazy" />
+                        <img src={featureImages.card2} alt="Modelo de Lenguaje" loading="lazy" />
                     </div>
-                    <h3>La Búsqueda Continúa</h3>
+                    <h3>Modelos de Lenguaje (LM)</h3>
                     <p>
-                        Desde telescopios espaciales como Kepler y TESS hasta futuras misiones como el James Webb, la humanidad está en una búsqueda incesante para comprender nuestro lugar en el universo.
+                        Desde modelos base hasta avanzados como GPT y Llama, la humanidad está en una búsqueda incesante para comprender y generar lenguaje natural con precisión y creatividad.
                     </p>
                 </motion.div>
                 <motion.div className="info-card" variants={itemVariants}>
                      <div className="card-image-container">
-                        <img src={exoplanetImages.card3} alt="Ilustración espacial" loading="lazy" />
+                        <img src={featureImages.card3} alt="Ilustración espacial" loading="lazy" />
                     </div>
                     <h3>Nuestro Impacto</h3>
                     <p>
