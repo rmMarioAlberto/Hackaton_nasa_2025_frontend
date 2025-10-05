@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
-import './WelcomePage.css';
+import './css/WelcomePage.css';
 
 // Importar imágenes con las extensiones originales
 import heroBackgroundImage from '../../../assets/portadas/portada3.jpeg';

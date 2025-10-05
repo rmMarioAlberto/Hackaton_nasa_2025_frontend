@@ -7,7 +7,6 @@ const Header: React.FC = () => {
             <h1>Mi Aplicación Espacial</h1>
             <nav>
                 <a href="/">Inicio</a>
-                <a href="/chat">Chat IA</a> {/* Puedes agregar más enlaces */}
             </nav>
         </header>
     );

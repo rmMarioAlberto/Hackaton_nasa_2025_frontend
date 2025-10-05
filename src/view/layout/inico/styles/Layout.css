@@ -3,31 +3,59 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f0f2f5;
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
 }
+
 .app-content {
     flex-grow: 1;
-    padding: 2rem;
+    padding: 0; /* Eliminamos el padding para que el fondo cubra completamente */
+    margin: 0;
+    width: 100%;
 }
+
 .app-header {
-    background-color: #1a2238;
+    background-color: rgba(26, 34, 56, 0.95); /* Fondo semi-transparente */
     color: white;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    backdrop-filter: blur(10px); /* Efecto de vidrio esmerilado */
+    border-bottom: 1px solid rgba(156, 246, 253, 0.2);
+    position: relative;
+    z-index: 1000;
 }
-.app-header h1 { margin: 0; font-size: 1.5rem; }
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    color: #9cf6fd;
+    text-shadow: 0 0 10px rgba(156, 246, 253, 0.5);
+}
+
 .app-header nav a {
-    color: white;
+    color: #e0e0e0;
     margin-left: 1.5rem;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
 }
-.app-header nav a:hover { text-decoration: underline; }
+
+.app-header nav a:hover {
+    color: #9cf6fd;
+    text-shadow: 0 0 8px rgba(156, 246, 253, 0.7);
+}
+
 .app-footer {
-    background-color: #333;
-    color: white;
+    background-color: rgba(19, 23, 42, 0.95);
+    color: #b0b0b0;
     text-align: center;
     padding: 1rem;
+    border-top: 1px solid rgba(156, 246, 253, 0.1);
+    backdrop-filter: blur(10px);
 }
+
+/* Si necesitas importar las fuentes, añade esto al inicio */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Orbitron:wght@400;700&display=swap');
