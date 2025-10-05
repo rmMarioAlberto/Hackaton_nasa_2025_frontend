@@ -69,6 +69,11 @@ const WelcomePage: React.FC = () => {
         navigate('/login');
     };
 
+    // Nueva función para manejar el clic en el chatbot
+    const handleChatbotClick = () => {
+        navigate('/chatbot');
+    };
+
     return (
         <div className="welcome-page-container">
             <section className="hero-section">
@@ -139,7 +144,12 @@ const WelcomePage: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
             >
-                <motion.div className="info-card" variants={itemVariants}>
+                <motion.div 
+                    className="info-card" 
+                    variants={itemVariants}
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleChatbotClick} // Agregado el onClick aquí
+                >
                     <div className="card-image-container">
                         <img src={featureImages.card1} alt="Chatbox de acceso" loading="lazy" />
                     </div>

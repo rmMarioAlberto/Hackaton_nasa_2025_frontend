@@ -1,0 +1,99 @@
+/* src/view/layout/admin/styles/AdminLayout.css */
+
+.admin-layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #0a0a14; /* Un fondo oscuro y consistente */
+}
+
+.admin-main-content {
+  flex-grow: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* --- Header Styles --- */
+.admin-header {
+  background-color: #1a1a2e;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(156, 246, 253, 0.2);
+  flex-wrap: wrap; /* Para responsividad */
+}
+
+.admin-header-logo h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #9cf6fd;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-nav-link {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-nav-link:hover {
+  background-color: rgba(156, 246, 253, 0.1);
+}
+
+.admin-nav-link.active {
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.admin-logout-button {
+  background: transparent;
+  border: 1px solid #f67280;
+  color: #f67280;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-logout-button:hover {
+  background-color: #f67280;
+  color: white;
+}
+
+/* --- Footer Styles --- */
+.admin-footer {
+  background-color: #1a1a2e;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(156, 246, 253, 0.2);
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+/* --- Responsive for Admin Layout --- */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

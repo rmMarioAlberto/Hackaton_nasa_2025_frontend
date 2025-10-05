@@ -1,0 +1,55 @@
+/* src/view/admin/dashboard/css/Dashboard.css */
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Usa min-height para asegurar que ocupe al menos toda la pantalla */
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+    color: #e0e0e0;
+    font-family: 'Montserrat', sans-serif;
+    padding: 2rem;
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+}
+
+.dashboard-content {
+    text-align: center;
+    background: rgba(26, 26, 46, 0.85);
+    backdrop-filter: blur(15px);
+    padding: clamp(2rem, 6vw, 4rem);
+    border-radius: 20px;
+    border: 1px solid rgba(156, 246, 253, 0.25);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    width: 100%;
+}
+
+.dashboard-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: #9cf6fd;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(156, 246, 253, 0.7);
+}
+
+.dashboard-content p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+.logout-button {
+    background: linear-gradient(45deg, #f67280, #ff9a9e);
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logout-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(246, 114, 128, 0.6);
+}

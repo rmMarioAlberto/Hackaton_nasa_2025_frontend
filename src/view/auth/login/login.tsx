@@ -5,6 +5,7 @@ import { Eye, EyeOff, Mail, Lock, Rocket, Star, AlertCircle, CheckCircle, ArrowL
 import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 
+// ... (El resto de tu código que no cambia se mantiene igual) ...
 interface LoginForm {
     email: string;
     password: string;
@@ -30,7 +31,6 @@ const Login: React.FC = () => {
     const [touched, setTouched] = useState<Partial<Record<keyof LoginForm, boolean>>>({});
     const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
-    // Reglas de validación
     const validationRules: Record<keyof LoginForm, ValidationRules> = {
         email: {
             required: true,
@@ -46,6 +46,10 @@ const Login: React.FC = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Esto ya estaba bien
+    }, []);
+
+    useEffect(() => {
         const handleMouseMove = (e: MouseEvent): void => {
             setMousePos({ x: e.clientX, y: e.clientY });
         };
@@ -54,12 +58,10 @@ const Login: React.FC = () => {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
-    // Función para volver al WelcomePage
     const handleBack = (): void => {
         navigate('/');
     };
-
-    // Validación individual de campo
+    
     const validateField = (name: keyof LoginForm, value: string): string => {
         const rules = validationRules[name];
         let error = '';
@@ -77,7 +79,6 @@ const Login: React.FC = () => {
         return error;
     };
 
-    // Validación en tiempo real cuando el campo pierde el foco
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
         setTouched(prev => ({ ...prev, [name]: true }));
@@ -96,7 +97,6 @@ const Login: React.FC = () => {
             [name]: value
         }));
 
-        // Validación en tiempo real solo si el campo ya fue tocado
         if (touched[name as keyof LoginForm]) {
             const error = validateField(name as keyof LoginForm, value);
             setErrors(prev => ({
@@ -110,14 +110,12 @@ const Login: React.FC = () => {
         const newErrors: Partial<LoginForm> = {};
         let isValid = true;
 
-        // Marcar todos los campos como tocados
         const allTouched = {
             email: true,
             password: true
         };
         setTouched(allTouched);
 
-        // Validar cada campo
         (Object.keys(formData) as Array<keyof LoginForm>).forEach(key => {
             const error = validateField(key, formData[key]);
             if (error) {
@@ -134,7 +132,6 @@ const Login: React.FC = () => {
         e.preventDefault();
 
         if (!validateForm()) {
-            // Scroll al primer error
             const firstErrorField = document.querySelector('.input-error');
             if (firstErrorField) {
                 firstErrorField.scrollIntoView({
@@ -148,34 +145,25 @@ const Login: React.FC = () => {
         setIsLoading(true);
 
         try {
-            // Aquí va tu lógica de autenticación
             console.log('Iniciando sesión con:', formData);
-
-            // Simulación de llamada API
             await new Promise(resolve => setTimeout(resolve, 1500));
 
-            // Simular diferentes respuestas para testing
-            const mockResponses = [
-                { success: true, message: 'Login exitoso' },
-                { success: false, message: 'Credenciales incorrectas' },
-                { success: false, message: 'Cuenta no verificada' }
-            ];
-
-            const response = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+            // Para esta demostración, forzaremos una respuesta exitosa.
+            const response = { success: true, message: 'Login exitoso' };
 
             if (!response.success) {
                 throw new Error(response.message);
             }
 
-            // Redirigir después del login exitoso
             console.log('Login exitoso, redirigiendo...');
-            // navigate('/dashboard');
+            
+            // <-- CAMBIO PRINCIPAL: Se activa la redirección al dashboard
+            
+            navigate('/admin/dashboard');
 
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             const errorMessage = error instanceof Error ? error.message : 'Error al iniciar sesión';
-
-            // Mostrar error general
             setErrors({
                 email: errorMessage,
                 password: errorMessage.includes('credenciales') ? 'Verifica tu contraseña' : ''
@@ -184,8 +172,7 @@ const Login: React.FC = () => {
             setIsLoading(false);
         }
     };
-
-    // Helper para determinar el estado del campo
+    
     const getFieldStatus = (fieldName: keyof LoginForm) => {
         if (!touched[fieldName]) return 'pristine';
         if (errors[fieldName]) return 'error';
@@ -194,9 +181,9 @@ const Login: React.FC = () => {
     };
 
     return (
+        // ... (Tu JSX permanece exactamente igual, no necesita cambios) ...
         <div className="welcome-page-container">
             <div className="hero-section">
-                {/* Background Image */}
                 <div
                     className="hero-background-image"
                     style={{
@@ -204,7 +191,6 @@ const Login: React.FC = () => {
                     }}
                 />
 
-                {/* Decorative Stars */}
                 <div className="stars-container">
                     {[...Array(50)].map((_, i) => (
                         <Star
@@ -221,7 +207,6 @@ const Login: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Parallax Orbs */}
                 <div
                     className="login-orb orb-1"
                     style={{
@@ -235,7 +220,6 @@ const Login: React.FC = () => {
                     }}
                 />
 
-                {/* Login Content */}
                 <div className="hero-content">
                     <div className="login-container">
                         <div className="login-header">
@@ -369,7 +353,6 @@ const Login: React.FC = () => {
                 </div>
             </div>
 
-            {/* CTA Section */}
             <div className="cta-section">
                 <h2>Explora el Universo de Exoplanetas</h2>
                 <p>
