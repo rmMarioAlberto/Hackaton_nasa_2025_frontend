@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, Variants } from 'framer-motion';
-import './WelcomePage.css';
-
-// Importar imágenes con las extensiones originales
-import heroBackgroundImage from '../../../assets/portadas/portada3.jpeg';
-import imageCard1 from '../../../assets/portadas/page.jpeg';
-import imageCard2 from '../../../assets/portadas/protada2.png';
-import imageCard3 from '../../../assets/portadas/portada3.jpeg';
-
-const exoplanetImages = {
-    card1: imageCard1,
-    card2: imageCard2,
-    card3: imageCard3,
-};
+import './css/WelcomePage.css';
 
 const WelcomePage: React.FC = () => {
+    const heroBackgroundImage = '/assets/img/TRAPPIST-1e_artist_impression_2018.png';
+
+    const exoplanetImages = {
+        card1: '/assets/img/2000x1125.jpg',
+        card2: '/assets/img/tess_gj357_english_thm.jpg',
+        card3: '/assets/img/2000x1209.png',
+    };
+
+    // Preload the hero image for faster loading
+    useEffect(() => {
+        const img = new Image();
+        img.src = heroBackgroundImage;
+    }, []);
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -26,36 +28,36 @@ const WelcomePage: React.FC = () => {
     };
 
     const itemVariants: Variants = {
-        hidden: { y: 30, opacity: 0 },
+        hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
-            transition: { type: 'spring', stiffness: 120, damping: 15 },
+            transition: { type: 'spring', stiffness: 100 },
         },
     };
 
     const sentenceVariants: Variants = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 1,
-                staggerChildren: 0.06,
-            },
+      hidden: { opacity: 1 },
+      visible: {
+        opacity: 1,
+        transition: {
+          delay: 0.2, // Reduced delay for faster load feel
+          staggerChildren: 0.06,
         },
+      },
     };
 
     const wordVariants: Variants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                damping: 12,
-                stiffness: 120,
-            },
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: 'spring',
+            damping: 15,
+            stiffness: 120,
         },
+      },
     };
 
     const heroTitle = "Descubre los Misterios de los Exoplanetas";
@@ -64,21 +66,26 @@ const WelcomePage: React.FC = () => {
     return (
         <div className="welcome-page-container">
             <section className="hero-section">
-                <motion.div
-                    className="hero-background-image"
-                    style={{ backgroundImage: `url(${heroBackgroundImage})` }}
-                    initial={{ opacity: 0, scale: 1.2 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 2.5, ease: 'easeOut' }}
+                <motion.img 
+                    src={heroBackgroundImage}
+                    className="hero-background-image" 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}   
+                    transition={{ duration: 1, ease: "easeOut" }} // Reduced duration for faster animation
+                    loading="eager" // Eager loading for hero image
+                    alt="Fondo de exoplanetas"
                 />
-
+                
+                <div className="hero-overlay" />
+                
                 <motion.div
                     className="hero-content"
-                    variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                 >
-                    <motion.h1 variants={sentenceVariants}>
+                    <motion.h1
+                        variants={sentenceVariants}
+                    >
                         {heroTitle.split(" ").map((word, index) => (
                             <motion.span
                                 key={word + "-" + index}
@@ -93,7 +100,7 @@ const WelcomePage: React.FC = () => {
                     <motion.p
                         className="subtitle"
                         variants={sentenceVariants}
-                        transition={{ staggerChildren: 0.04, delayChildren: 2 }}
+                        transition={{ staggerChildren: 0.04, delayChildren: 1 }} // Reduced delay
                     >
                         {heroSubtitle.split(" ").map((word, index) => (
                             <motion.span
@@ -105,14 +112,14 @@ const WelcomePage: React.FC = () => {
                             </motion.span>
                         ))}
                     </motion.p>
-
+                    
                     <motion.button
                         className="explore-button"
-                        whileHover={{ scale: 1.08, boxShadow: '0px 0px 15px rgba(0,123,255,0.7)' }}
+                        whileHover={{ scale: 1.05, boxShadow: "0px 0px 12px rgba(0,123,255,0.5)" }}
                         whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 3.5 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 1.5 }} // Reduced delay
                     >
                         ¡Comienza tu viaje cósmico!
                     </motion.button>
@@ -124,15 +131,11 @@ const WelcomePage: React.FC = () => {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.3 }}
             >
                 <motion.div className="info-card" variants={itemVariants}>
                     <div className="card-image-container">
-                        <img
-                            src={exoplanetImages.card1}
-                            alt="Exoplaneta Kepler-186f"
-                            loading="lazy"
-                        />
+                        <img src={exoplanetImages.card1} alt="Exoplaneta Kepler-186f" loading="lazy" />
                     </div>
                     <h3>¿Qué es un Exoplaneta?</h3>
                     <p>
@@ -141,11 +144,7 @@ const WelcomePage: React.FC = () => {
                 </motion.div>
                 <motion.div className="info-card" variants={itemVariants}>
                     <div className="card-image-container">
-                        <img
-                            src={exoplanetImages.card2}
-                            alt="Exoplaneta TRAPPIST-1e"
-                            loading="lazy"
-                        />
+                        <img src={exoplanetImages.card2} alt="Exoplaneta TRAPPIST-1e" loading="lazy" />
                     </div>
                     <h3>La Búsqueda Continúa</h3>
                     <p>
@@ -153,12 +152,8 @@ const WelcomePage: React.FC = () => {
                     </p>
                 </motion.div>
                 <motion.div className="info-card" variants={itemVariants}>
-                    <div className="card-image-container">
-                        <img
-                            src={exoplanetImages.card3}
-                            alt="Ilustración espacial"
-                            loading="lazy"
-                        />
+                     <div className="card-image-container">
+                        <img src={exoplanetImages.card3} alt="Ilustración espacial" loading="lazy" />
                     </div>
                     <h3>Nuestro Impacto</h3>
                     <p>
@@ -168,29 +163,26 @@ const WelcomePage: React.FC = () => {
             </motion.section>
 
             <section className="cta-section">
-                <motion.h2
-                    initial={{ opacity: 0, y: -30 }}
+                 <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                >
+                    transition={{ duration: 0.8 }}
+                 >
                     ¿Listo para Explorar?
                 </motion.h2>
                 <motion.p
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     Únete a nuestra comunidad de exploradores y científicos.
                 </motion.p>
                 <motion.button
                     className="cta-button"
-                    whileHover={{ scale: 1.08, boxShadow: '0px 0px 15px rgba(246,114,128,0.7)' }}
+                    whileHover={{ scale: 1.05, boxShadow: "0px 0px 12px rgba(246,114,128,0.5)" }}
                     whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
                 >
                     Ver Proyectos del Hackathon
                 </motion.button>
