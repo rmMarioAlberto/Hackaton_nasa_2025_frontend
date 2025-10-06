@@ -1,9 +1,7 @@
-// src/view/layout/admin/Header.tsx
-
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-// --- 1. Importa un nuevo ícono para el enlace ---
-import { LayoutDashboard, LogOut, FileArchive } from 'lucide-react'; 
+// 1. Se importa un nuevo ícono para el enlace de planetas
+import { LayoutDashboard, LogOut, FileArchive, List } from 'lucide-react'; 
 import './styles/AdminLayout.css';
 
 const Header: React.FC = () => {
@@ -30,7 +28,7 @@ const Header: React.FC = () => {
                     <span>Dashboard</span>
                 </NavLink>
 
-                {/* --- 2. Agrega el nuevo enlace a Dropbox aquí --- */}
+                {/* Enlace a Dropbox (existente) */}
                 <NavLink 
                     to="/admin/dropbox" 
                     className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}
@@ -38,6 +36,16 @@ const Header: React.FC = () => {
                     <FileArchive size={18} />
                     <span>Dropbox</span>
                 </NavLink>
+
+                {/* 2. Se agrega el nuevo enlace/botón para la lista de planetas */}
+                <NavLink 
+                    to="/admin/planets" 
+                    className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}
+                >
+                    <List size={18} />
+                    <span>Planetas</span>
+                </NavLink>
+
             </nav>
             <div className="admin-header-actions">
                 <button onClick={handleLogout} className="admin-logout-button">

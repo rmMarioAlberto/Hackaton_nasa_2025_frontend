@@ -123,7 +123,7 @@ const Login: React.FC = () => {
         setErrors({});
 
         try {
-            const response = await fetch('https://268c4e9747c7.ngrok-free.app/api/auth/login', {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

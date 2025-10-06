@@ -1,4 +1,3 @@
-// src/view/chatbot/ChatbotView.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -63,7 +62,8 @@ const ChatbotView: React.FC = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/chat', {
+            
+            const response = await fetch('http://localhost:3000/api/chatbot/queryChatBot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -8,7 +6,7 @@ import Layout from './view/layout/inico/Layout';
 import AdminLayout from './view/layout/admin/AdminLayout';
 
 // --- COMPONENTE DE PROTECCIÓN ---
-import ProtectedRoute from './components/auth/ProtectedRoute'; // <-- 1. IMPORTA EL GUARDIA
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 // --- Vistas ---
 import WelcomePage from './view/landing/inico/WelcomePage';
@@ -17,6 +15,9 @@ import ChatbotView from './view/chatbot/ChatbotView';
 import Dashboard from './view/admin/dashboard/Dashboard';
 import ParallaxLanding from './components/landing/ParallaxLanding';
 import Dropbox from './components/dropbox/Dropbox';
+import PlanetCharts from './view/admin/planets/PlanetCharts';
+// ✅ 1. IMPORTA LA NUEVA VISTA
+import PlanetList from './view/admin/planets/PlanetList';
 
 const App: React.FC = () => {
   return (
@@ -34,7 +35,6 @@ const App: React.FC = () => {
         <Route 
           path="/admin" 
           element={
-            // <-- 2. USA EL PROTECTEDROUTE PARA PROTEGER EL LAYOUT DE ADMIN
             <ProtectedRoute>
               <AdminLayout />
             </ProtectedRoute>
@@ -42,6 +42,8 @@ const App: React.FC = () => {
         >
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="dropbox" element={<Dropbox />} />
+          <Route path="planets" element={<PlanetList />} />
+          <Route path="planets/:planetId/charts" element={<PlanetCharts />} />
         </Route>
       </Routes>
     </BrowserRouter>

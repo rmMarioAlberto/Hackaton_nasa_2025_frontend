@@ -599,3 +599,37 @@
     font-size: 0.9rem;
   }
 }
+
+/* ... (tus estilos existentes) ... */
+
+/* --- ⭐ NUEVOS ESTILOS PARA LA VISTA PREVIA DEL JSON --- */
+.json-preview-section {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.json-preview-section h4 {
+  color: #e0e0e0;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.json-preview-box {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap; /* Permite que el texto se ajuste */
+  word-wrap: break-word; /* Rompe palabras largas si es necesario */
+}
+
+.json-preview-box code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  color: #90f3ff; /* Color celeste para el código */
+}
